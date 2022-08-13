@@ -1,0 +1,59 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+<script type="text/javascript" src="{{ url_for('static', filename = 'learn.js') }}"></script>
+
+<script>
+    var drum_kit = {{drum_kit|tojson}}
+</script>
+
+
+
+
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div id="drum_box" class="drum_box">
+            <div class="subtitle"></div>
+            <img src="/static/drumkit.png" class="drumkit" usemap="#mymap" id="drum">
+            <map name="mymap">
+                <area class = "drumstick" shape="circle" coords="136,224,64" href="#" onclick="play(this)" id="1">
+                <area class = "drumstick" shape="circle" coords="270,120,75" href="#" onclick="play(this)" id="2">
+                <area class = "drumstick" shape="circle" coords="672,200,104" href="#" onclick="play(this)" id="3">
+                <area class = "drumstick" shape="circle" coords="240,300,64" href="#" onclick="play(this)" id="4">
+                <area class = "drumstick" shape="circle" coords="360,224,40" href="#" onclick="play(this)" id="5">
+                <area class = "drumstick" shape="circle" coords="510,248,48" href="#" onclick="play(this)" id="6">
+                <area class = "drumstick" shape="circle" coords="600,440,84" href="#" onclick="play(this)" id="7">   
+                <area class = "drumstick" shape="circle" coords="416,400,80" href="#" onclick="play(this)" id="8">
+            </map>
+            <img src="/static/arrow.png" class="arrow1_learn hidden" id="1arrow_learn"> 
+            <img src="/static/arrow.png" class="arrow2_learn hidden" id="2arrow_learn">
+            <img src="/static/arrow.png" class="arrow3_learn hidden" id="3arrow_learn">
+            <img src="/static/arrow.png" class="arrow4_learn hidden" id="4arrow_learn">
+            <img src="/static/arrow.png" class="arrow5_learn hidden" id="5arrow_learn">
+            <img src="/static/arrow.png" class="arrow6_learn hidden" id="6arrow_learn">
+            <img src="/static/arrow.png" class="arrow7_learn hidden" id="8arrow_learn">
+            <img src="/static/arrow.png" class="arrow8_learn hidden" id="7arrow_learn">
+
+            <div id="description" class="inline-block"></div>
+        </div>
+        
+        
+    </div>
+    <div id = "col_third" class="col-1">
+    </div>
+</div>
+<div class="row space">
+    <div class="col-5"></div>
+    <div class="col-1 center">
+        <button class="btn btn-info hidden font height" type="button" id="quizbutton">Quiz</button>
+    </div>    
+    <div class="col-5"></div>
+</div>
+
+<div id="alert_section" class="m-4"></div>
+
+
+{% endblock %}

@@ -1,0 +1,190 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script type="text/javascript" src="{{ url_for('static', filename = 'quiz.js') }}"></script>
+
+<script>
+
+ 
+    var data = {{data|tojson}} 
+    var drum_kit = {{drum_kit|tojson}} 
+
+
+    
+</script>
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div id="drum_box_quiz" class="drum_box">
+            <div class="subtitle">
+                <div id="subtitle_content" class="padding10px font2">
+                    <span id="questionTitle">Question 1: Please play all toms from high to low pitch. </span>
+                    
+                    <!-- <input type="image" src="/static/audio-button.png" class="audio-button" OnClick="playQuestion()"/> -->
+                    
+                </div>
+                <div id="video_container" class='alert-fixed'></div>
+            </div>
+            
+            <div class="row">
+                <div class="col-1">
+
+                </div>
+                <div class="col-10">
+                    <div id="quizVideo">
+                        <video width="860" height="600" controls z-index="20">
+                            <source src="/static/audio_quiz/quiz5/quiz5_prompt.mp4" >
+                        </video>
+                        <div class="row">
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info unselected font" id="Aoption" >A</button>
+                                <img src="/static/audio-button.png" class="audio-option" id="A" OnClick="playAnswerA()">
+
+                                
+
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info unselected font" id="Boption">B</button>
+                                <img src="/static/audio-button.png" class="audio-option" id="B" OnClick="playAnswerB()">
+
+                                
+
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info unselected font" id="Coption">C</button>
+                                <img src="/static/audio-button.png" class="audio-option" id="C" OnClick="playAnswerC()">
+
+                                
+
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info unselected font" id="Doption">D</button>
+                                <img src="/static/audio-button.png" class="audio-option" id="D" OnClick="playAnswerD()">
+
+                                
+
+                            </div>
+                            
+                            
+
+                            
+
+                        </div>
+
+                    </div>
+                    <div class="quizAnswer" id="mockDrumArea">
+                        <img src="/static/drumkit.png" class="drumkit" usemap="#mymap" id="drum">
+                        <map name="mymap">
+                            <area class = "drumstick" shape="circle" coords="136,224,64" href="#" onclick="play(this)" id="1">
+                            <area class = "drumstick" shape="circle" coords="270,120,75" href="#" onclick="play(this)" id="2">
+                            <area class = "drumstick" shape="circle" coords="672,200,104" href="#" onclick="play(this)" id="3">
+                            <area class = "drumstick" shape="circle" coords="240,300,64" href="#" onclick="play(this)" id="4">
+                            <area class = "drumstick" shape="circle" coords="360,224,40" href="#" onclick="play(this)" id="5">
+                            <area class = "drumstick" shape="circle" coords="510,248,48" href="#" onclick="play(this)" id="6">
+                            <area class = "drumstick" shape="circle" coords="600,440,84" href="#" onclick="play(this)" id="7">   
+                            <area class = "drumstick" shape="circle" coords="416,400,80" href="#" onclick="play(this)" id="8">
+            
+                        </map> 
+                        <div class="ans1" id="1ans"></div>
+                        <div class="ans2" id="2ans"></div>
+                        <div class="ans3" id="3ans"></div>
+                        <div class="ans4" id="4ans"></div>  
+                        <div class="ans5" id="5ans"></div>
+                        <div class="ans6" id="6ans"></div>
+                        <div class="ans7" id="7ans"></div>
+                        <div class="ans8" id="8ans"></div>  
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+
+    <!-- <div id="quiz_tut" class="m-4"> 
+        <div class="alert alert-info alert-dismissible fade show alert-fixed alert-high">
+            <div>
+                The blue bar under each drum element records the sequence of your answer.
+            </div>
+            <div>
+                Click <strong>Clear</strong> to clear the previous answer.
+            </div>
+            <div>
+                Click <strong>Submit</strong> to submit you answer, and once submit, you cannot change to change it later. 
+
+            </div>
+            
+            <button type="button" class="btn-close" id="quiz_tut_close"></button>
+            <div class="row">
+                <div class="col-10"></div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-info" id="quiz_tut_ok"> OK </button> 
+
+
+                </div>
+                    
+                
+                   
+            </div>
+        </div>
+    </div> -->
+
+</div>
+<div class="row space">
+    <div class="col-5"></div>
+    <div class="col-1"><button type="button " id="clear" class="btn btn-info font height">Clear</button></div>
+    <div class="col-1"><button type="button" id="submit" class="btn btn-info font height">Submit</button></div>
+    <div class="col-5"></div>
+    <!-- <div class="col-1"></div>   -->
+</div>
+
+<div class="col-1"></div>
+<div id="alert_section" class="m-4 hidden"> 
+    <div id="alert" class="alert alert-info alert-dismissible fade show alert-fixed font">
+        <br>
+        <div id="alert_feedback">
+            Your answer is correct!
+            
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-6"></div>
+            <div class="col-2">
+                <button type="button" class="btn btn-info font" id="alert_next">Next</button>
+            </div>
+            <div class="col-4">
+                <button type="button" class="btn btn-info font" id="alert_answer">View Answer</button>
+
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div id="quiz_intro" class="m-4 hidden"> 
+    <div class="alert alert-info alert-dismissible fade show alert-fixed alert-high">
+        <div>
+            This is intro            
+        </div>
+        
+        <button type="button" class="btn-close" id="quiz_intro_close"></button>
+        <div class="row">
+            <div class="col-10"></div>
+            <div class="col-2">
+                <button type="button" class="btn btn-info font" id="quiz_intro_ok"> OK </button> 
+
+
+            </div>
+                
+            
+               
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
